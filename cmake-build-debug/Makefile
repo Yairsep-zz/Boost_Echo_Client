@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /users/studs/bsc/2020/yairsep/Downloads/CLion-2019.3.2/clion-2019.3.2/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /cygdrive/c/Users/yairs/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe
 
 # The command to remove a file.
-RM = /users/studs/bsc/2020/yairsep/Downloads/CLion-2019.3.2/clion-2019.3.2/bin/cmake/linux/bin/cmake -E remove -f
+RM = /cygdrive/c/Users/yairs/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client
+CMAKE_SOURCE_DIR = /cygdrive/c/Users/yairs/CLionProjects/Boost_Echo_Client
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/cmake-build-debug
+CMAKE_BINARY_DIR = /cygdrive/c/Users/yairs/CLionProjects/Boost_Echo_Client/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/cmake
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/users/studs/bsc/2020/yairsep/Downloads/CLion-2019.3.2/clion-2019.3.2/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/cygdrive/c/Users/yairs/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/users/studs/bsc/2020/yairsep/Downloads/CLion-2019.3.2/clion-2019.3.2/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/cygdrive/c/Users/yairs/.CLion2019.2/system/cygwin_cmake/bin/cmake.exe -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/cmake-build-debug/CMakeFiles /users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/yairs/CLionProjects/Boost_Echo_Client/cmake-build-debug/CMakeFiles /cygdrive/c/Users/yairs/CLionProjects/Boost_Echo_Client/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/yairs/CLionProjects/Boost_Echo_Client/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -122,6 +122,114 @@ Boost_Echo_Client: cmake_check_build_system
 Boost_Echo_Client/fast:
 	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/build
 .PHONY : Boost_Echo_Client/fast
+
+src/Book.o: src/Book.cpp.o
+
+.PHONY : src/Book.o
+
+# target to build an object file
+src/Book.cpp.o:
+	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/src/Book.cpp.o
+.PHONY : src/Book.cpp.o
+
+src/Book.i: src/Book.cpp.i
+
+.PHONY : src/Book.i
+
+# target to preprocess a source file
+src/Book.cpp.i:
+	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/src/Book.cpp.i
+.PHONY : src/Book.cpp.i
+
+src/Book.s: src/Book.cpp.s
+
+.PHONY : src/Book.s
+
+# target to generate assembly for a file
+src/Book.cpp.s:
+	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/src/Book.cpp.s
+.PHONY : src/Book.cpp.s
+
+src/Client.o: src/Client.cpp.o
+
+.PHONY : src/Client.o
+
+# target to build an object file
+src/Client.cpp.o:
+	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/src/Client.cpp.o
+.PHONY : src/Client.cpp.o
+
+src/Client.i: src/Client.cpp.i
+
+.PHONY : src/Client.i
+
+# target to preprocess a source file
+src/Client.cpp.i:
+	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/src/Client.cpp.i
+.PHONY : src/Client.cpp.i
+
+src/Client.s: src/Client.cpp.s
+
+.PHONY : src/Client.s
+
+# target to generate assembly for a file
+src/Client.cpp.s:
+	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/src/Client.cpp.s
+.PHONY : src/Client.cpp.s
+
+src/Frame.o: src/Frame.cpp.o
+
+.PHONY : src/Frame.o
+
+# target to build an object file
+src/Frame.cpp.o:
+	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/src/Frame.cpp.o
+.PHONY : src/Frame.cpp.o
+
+src/Frame.i: src/Frame.cpp.i
+
+.PHONY : src/Frame.i
+
+# target to preprocess a source file
+src/Frame.cpp.i:
+	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/src/Frame.cpp.i
+.PHONY : src/Frame.cpp.i
+
+src/Frame.s: src/Frame.cpp.s
+
+.PHONY : src/Frame.s
+
+# target to generate assembly for a file
+src/Frame.cpp.s:
+	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/src/Frame.cpp.s
+.PHONY : src/Frame.cpp.s
+
+src/User.o: src/User.cpp.o
+
+.PHONY : src/User.o
+
+# target to build an object file
+src/User.cpp.o:
+	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/src/User.cpp.o
+.PHONY : src/User.cpp.o
+
+src/User.i: src/User.cpp.i
+
+.PHONY : src/User.i
+
+# target to preprocess a source file
+src/User.cpp.i:
+	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/src/User.cpp.i
+.PHONY : src/User.cpp.i
+
+src/User.s: src/User.cpp.s
+
+.PHONY : src/User.s
+
+# target to generate assembly for a file
+src/User.cpp.s:
+	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/src/User.cpp.s
+.PHONY : src/User.cpp.s
 
 src/connectionHandler.o: src/connectionHandler.cpp.o
 
@@ -186,6 +294,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... Boost_Echo_Client"
 	@echo "... edit_cache"
+	@echo "... src/Book.o"
+	@echo "... src/Book.i"
+	@echo "... src/Book.s"
+	@echo "... src/Client.o"
+	@echo "... src/Client.i"
+	@echo "... src/Client.s"
+	@echo "... src/Frame.o"
+	@echo "... src/Frame.i"
+	@echo "... src/Frame.s"
+	@echo "... src/User.o"
+	@echo "... src/User.i"
+	@echo "... src/User.s"
 	@echo "... src/connectionHandler.o"
 	@echo "... src/connectionHandler.i"
 	@echo "... src/connectionHandler.s"
