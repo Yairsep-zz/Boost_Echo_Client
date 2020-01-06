@@ -1,0 +1,3 @@
+/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/cmake-build-debug/CMakeFiles/Boost_Echo_Client.dir
+/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/cmake-build-debug/CMakeFiles/edit_cache.dir
