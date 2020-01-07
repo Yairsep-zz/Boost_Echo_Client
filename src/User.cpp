@@ -10,12 +10,14 @@ User::~User() {
     inventory.clear();
     borrowedFromMap.clear();
     borrowedToMap.clear();
-    genreMap.clear();
+
 }
 
-User::User(const std::string &userName) : userName(userName) , password(password), inventory(std::vector<Book>()),
-    borrowedFromMap(map<Book,string>()) , borrowedToMap(map<Book,string>()), genreMap(map<string,int>()){
+User::User(const string name,const string password):userName(name),password(password) ,
+        inventory(), borrowedFromMap(), borrowedToMap(),subscriptionToId(){
+    receiptCounter = 0;
 }
+
 
 
 //=======================Getters==================================
@@ -35,27 +37,35 @@ const vector<Book> &User::getInventory() const {
 //=======================Setters==================================
 
 
-void User::setUserName(const string &userName) {
-
-}
-
-void User::setPassword(const string &password) {
-
-}
-
 void User::addToInventory(Book *book) {
     inventory.push_back(*book);
 }
 
-void User::addToBorrowedFrom(Book *book) {
-    borrowedFromMap.insert(book,)
+
+const map<string, string> &User::getSubscriptionToId() {
+    return subscriptionToId;
 }
 
-void User::addToBorrowedTo(Book *book) {
-    borrowedToMap.insert(book,)
+int User::getSubscribeId() {
+    return subscribeId++;
 }
 
-void User::addToSetSubscribeToGenre(string genre) {
-    genreMap.insert(genre, )
+void User::setSubscribeId(int subscribeId) {
+
+    User::subscribeId = subscribeId;
 }
+
+map<Book, string> User::getBorrowedFromMap() {
+    return borrowedFromMap;
+}
+
+const string &User::getPreviousOwnerName(Book book) const {
+    return borrowedFromMap.at(book);
+}
+
+User::User() {
+
+}
+
+
 

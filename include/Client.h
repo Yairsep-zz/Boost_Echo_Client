@@ -11,31 +11,18 @@
 #include <map>
 #include "Book.h"
 #include "connectionHandler.h"
-#include "Frame.h"
 
 
 using namespace std;
 class Client {
 
 private:
+    ConnectionHandler &connectionHandler;
+
 
 
 public:
 
-
-    Frame *createLoginFrame(string header, string version, string userName, string password, string destination);
-
-    Frame *createJoinFrame(string header, string destination, string id, string receipt);
-
-    Frame *createAddFrame(string header, string destination, string body);
-
-    Frame *createBorrowFrame(string header, string destination, string body);
-
-    Frame *createReturnFrame(string header, string destination, string body);
-
-    Frame *createStatusFrame(string header, string destination, string body);
-
-    Frame *createLogoutFrame(string header, string receipt);
 };
 
 

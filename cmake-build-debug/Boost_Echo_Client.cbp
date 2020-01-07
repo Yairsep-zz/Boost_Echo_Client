@@ -98,9 +98,6 @@
 		<Unit filename="/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/include/Client.h">
 			<Option target="Boost_Echo_Client"/>
 		</Unit>
-		<Unit filename="/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/include/Frame.h">
-			<Option target="Boost_Echo_Client"/>
-		</Unit>
 		<Unit filename="/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/include/User.h">
 			<Option target="Boost_Echo_Client"/>
 		</Unit>
@@ -111,9 +108,6 @@
 			<Option target="Boost_Echo_Client"/>
 		</Unit>
 		<Unit filename="/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/Client.cpp">
-			<Option target="Boost_Echo_Client"/>
-		</Unit>
-		<Unit filename="/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/Frame.cpp">
 			<Option target="Boost_Echo_Client"/>
 		</Unit>
 		<Unit filename="/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/User.cpp">

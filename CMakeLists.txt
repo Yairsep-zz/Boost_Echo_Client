@@ -12,7 +12,7 @@ add_executable(Boost_Echo_Client
         include/connectionHandler.h
         src/echoClient.cpp
         src/connectionHandler.cpp
-        src/Client.cpp include/Client.h src/Frame.cpp include/Frame.h src/Book.cpp include/Book.h src/User.cpp include/User.h)
+        src/Client.cpp include/Client.h src/Book.cpp include/Book.h src/User.cpp include/User.h)
 
 find_package(Boost 1.65.1 REQUIRED COMPONENTS
         date_time filesystem iostreams system)

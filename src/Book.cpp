@@ -31,8 +31,6 @@ bool Book::isBorrowFrom() {
     return borrowFrom;
 }
 
-
-
 //=======================Setters==================================
 
 void Book::setBorrowTo() {
