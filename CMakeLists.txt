@@ -10,5 +10,12 @@ include_directories(src)
 
 add_executable(Boost_Echo_Client
         include/connectionHandler.h
+        src/echoClient.cpp
         src/connectionHandler.cpp
-        src/echoClient.cpp)
+        src/Client.cpp include/Client.h src/Frame.cpp include/Frame.h src/Book.cpp include/Book.h src/User.cpp include/User.h)
+
+find_package(Boost 1.65.1 REQUIRED COMPONENTS
+        date_time filesystem iostreams system)
+find_package(Threads)
+#target_link_libraries(Client Boost::date_time Boost::filesystem
+#        Boost::iostreams Boost::system)

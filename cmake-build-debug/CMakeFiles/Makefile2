@@ -74,12 +74,12 @@ preinstall:
 CMakeFiles/Boost_Echo_Client.dir/all:
 	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/depend
 	$(MAKE) -f CMakeFiles/Boost_Echo_Client.dir/build.make CMakeFiles/Boost_Echo_Client.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target Boost_Echo_Client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target Boost_Echo_Client"
 .PHONY : CMakeFiles/Boost_Echo_Client.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Boost_Echo_Client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/cmake-build-debug/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/cmake-build-debug/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Boost_Echo_Client.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Boost_Echo_Client.dir/rule

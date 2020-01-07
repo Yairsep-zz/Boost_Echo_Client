@@ -6,6 +6,42 @@
 
 #IncludeRegexTransform: 
 
+../include/Book.h
+vector
+-
+iostream
+-
+string
+-
+
+../include/Frame.h
+string
+-
+vector
+-
+unordered_map
+-
+map
+-
+Book.h
+../include/Book.h
+connectionHandler.h
+../include/connectionHandler.h
+
+../include/User.h
+string
+-
+vector
+-
+unordered_map
+-
+map
+-
+Book.h
+../include/Book.h
+connectionHandler.h
+../include/connectionHandler.h
+
 ../include/connectionHandler.h
 string
 -
@@ -14,13 +50,21 @@ iostream
 boost/asio.hpp
 -
 
-/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/connectionHandler.cpp
-connectionHandler.h
+/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/Book.cpp
+Book.h
+/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/Book.h
+vector
+-
+iostream
+-
+string
 -
 
-/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/echoClient.cpp
-stdlib.h
--
-connectionHandler.h
--
+/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/Frame.cpp
+Frame.h
+/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/Frame.h
+
+/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/User.cpp
+User.h
+/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/User.h
 
