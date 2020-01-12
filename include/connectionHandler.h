@@ -14,6 +14,7 @@ private:
     boost::asio::io_service io_service_;   // Provides core I/O functionality
     tcp::socket socket_;
     bool loggedOut;
+    bool loggedIn=false;
 
 
 public:
@@ -50,12 +51,14 @@ public:
     // Close down the connection properly.
     void close();
 
+    void logMeIn();
 
     //--------------------------------------Extras--------------------------------
 
     bool isLoggedOut();
 
     void setLoggedOut();
+    bool isLoggedIn();
 
 }; //class ConnectionHandler
 

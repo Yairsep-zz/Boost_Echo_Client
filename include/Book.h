@@ -10,26 +10,25 @@
 using namespace std;
 class Book{
 
-
-
 private:
     string name;
     string genre;
     bool borrowTo;
-    bool borrowFrom;
+    string borrowFrom;
 
 public:
-    Book(const string &name, const string &genre, bool borrowTo, bool borrowFrom);
-    Book(string name,string genre);
+    Book(string &name,string &genre);
     //=======================Getters==================================
     string getGenre();
     string getName();
     bool isBorrowTo();
-    bool isBorrowFrom();
+    string getPrivouesOwner();
+
 
     //=======================Setters==================================
     void setBorrowTo();
-    void setBorrowFrom();
+    void setPrivouesOwner(string name);
+
 
 };
 

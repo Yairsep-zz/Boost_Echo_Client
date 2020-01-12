@@ -11,6 +11,7 @@
 #include <map>
 #include "Book.h"
 #include "connectionHandler.h"
+#
 using namespace std;
 class User {
 
@@ -18,11 +19,13 @@ private:
     string userName;
     string password;
     vector<Book> inventory;
-    map<Book,string> borrowedFromMap;
-    map<Book,string> borrowedToMap;
+    map<Book*,string> borrowedFromMap;
+    vector <string> wishingBooks;
     map<string,string> subscriptionToId;
     int subscribeId;
-    int connectionId;
+    map<string,string> receiptIdToPrint;
+    int receiptId;
+
 
 public:
 
@@ -31,26 +34,38 @@ public:
     ~User();
     void setSubscribeId(int subscribeId);
     int getSubscribeId();
-    int receiptCounter;
+    bool iHaveTheBook(string bookName);
+
+    string getReceiptIdToPrint(string subID);
 
 
     //=======================Getters==================================
-
+    map<string,string> &getreceiptIdToPrint();
     const string &getUserName() const;
+    int getReceiptCounter();
+    bool isInMyWishList(string name);
 
     const string &getPassword() const;
 
     const vector<Book> &getInventory() const;
 
     const map<string, string> &getSubscriptionToId();
+     map<Book*,string>& getborowedFromMap();
 
-    map<Book, string> getBorrowedFromMap();
-
-    const string &getPreviousOwnerName(Book) const;
 
     //=======================Setters==================================
-
+    void removeFromInventory(string bookName);
     void addToInventory(Book *book);
+    void setreceiptIdToPrint(int receiptId,string messageToPrint);
+    void increaseReceiptCounter();
+    void addToBorrowedMap(Book* book,string owner);
+    void addToMyWishing(string nameOfBook);
+    void removeFromWishing(string nameOfBook);
+    ////
+    //geters////
+    string printInventoryByGenre (string genre);
+    Book getBookFromInventory(string bookName);
+
 
 
 };

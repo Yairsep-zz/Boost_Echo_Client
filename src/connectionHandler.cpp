@@ -117,3 +117,11 @@ bool ConnectionHandler::isLoggedOut(){
 void ConnectionHandler :: setLoggedOut(){
     loggedOut=true;
 }
+
+void ConnectionHandler::logMeIn() {
+    this->loggedIn=true;
+}
+
+bool ConnectionHandler::isLoggedIn() {
+    return this->loggedIn;
+}

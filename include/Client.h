@@ -11,14 +11,16 @@
 #include <map>
 #include "Book.h"
 #include "connectionHandler.h"
+#include "User.h"
 
 
 using namespace std;
+
 class Client {
 
 private:
     ConnectionHandler &connectionHandler;
-
+    User* activeUser;
 
 
 public:
