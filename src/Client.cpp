@@ -4,8 +4,8 @@
 
 #include <thread>
 #include <boost/algorithm/string.hpp>
-#include <include/User.h>
 #include <boost/lexical_cast.hpp>
+#include <User.h>
 
 using boost::asio::ip::tcp;
 using namespace std;
@@ -21,7 +21,7 @@ public:
     TaskWrite(ConnectionHandler &connectionHandler,User* activeUser) : connectionHandler(connectionHandler),activeUser(activeUser) {}
 
     void operator()() {
-        while (!connectionHandler.isLoggedOut()) {
+        while (!connectionHandler.getWriteIsLoggedOut()) {
             //Reading line from the command:
             string line;
             getline(cin, line);
@@ -45,13 +45,11 @@ public:
             }
 
             if (lineVector[0] == "join") {
-                //TODO ADDING THE TOPIC TO MAP
                 //Actions regarding the Command
                 int subscribeId = activeUser->getSubscribeId();
                 int receiptId = activeUser->getReceiptCounter();
 
                 activeUser->setreceiptIdToPrint(receiptId, "Joined club " + lineVector[1]);
-                //Creating Framelogin 127.0.0.1:7777 alon brand
                 string frame =
                         "SUBSCRIBE\ndestination:" + lineVector[1] + "\n" + "id:" + to_string(subscribeId) +
                         +"\nreceipt:" + to_string(receiptId) + "\n\n" + '\u0000';
@@ -61,7 +59,6 @@ public:
 
             }
             if (lineVector[0] == "add") {
-                //TODO check if further action needed
                 //Actions regarding the Command
                 Book *book = new Book(lineVector[2], lineVector[1]);
                 activeUser->addToInventory(book);
@@ -71,6 +68,7 @@ public:
                                + '\u0000';
                 connectionHandler.sendLine(frame);
             }
+
             if (lineVector[0] == "borrow") {
                 //adding the book to my wishing books
                 activeUser->addToMyWishing(lineVector[2]);
@@ -83,9 +81,6 @@ public:
             }
 
             if (lineVector[0] == "exit") {
-
-                //TODO check Unsubscribe frame sturcture what needed to be done
-
                 //Actions regarding the Command
                 int subscribeId = activeUser->getSubscribeId();
                 int receiptId = activeUser->getReceiptCounter();
@@ -98,32 +93,20 @@ public:
                 connectionHandler.sendLine(frame);
             }
 
-
-
             if (lineVector[0] == "return") {
-                //Actions regarding the Command
-                vector<Book> inventory = activeUser->getInventory();
                 Book *book = new Book(lineVector[2], lineVector[1]);
-                bool found = false;
-                for (auto it = inventory.begin(); it != inventory.end(); ++it) {
-                    if (it->getName() == book->getName())
-                        found = true;
-                }
-                if (!found) {
-                    cout << "Error: I dont have this book";
-                } else {
-                    Book BookToReturn=activeUser->getBookFromInventory(lineVector[2]);
-                    //Creating Frame
-                    string frame = "SEND\ndestination:" + lineVector[1] + "\n\n" +
-                                   "Returning " + lineVector[2] + " to "
-                                   +BookToReturn.getPrivouesOwner()+
-                                   "\n" + '\u0000';
-                    activeUser->removeFromInventory(book->getName());
-                    connectionHandler.sendLine(frame);
-                }
+                string prevowner=activeUser->getPreOwnerFromBorrowedBooks(lineVector[2]);
+                //Creating Frame
+                string frame = "SEND\ndestination:" + lineVector[1] + "\n\n" +
+                               "Returning " + lineVector[2] + " to "
+                               +prevowner+
+                               "\n" + '\u0000';
+                activeUser->removeFromInventory(book->getName());
+                activeUser->removeFromBorrowedBooks(lineVector[2]);
+                connectionHandler.sendLine(frame);
             }
-            if (lineVector[0] == "status") {
 
+            if (lineVector[0] == "status") {
                 //Creating Frame
                 string frame = "SEND\ndestination:" + lineVector[1] + "\n\n" +
                                "book status\n"
@@ -140,9 +123,8 @@ public:
                 activeUser->setreceiptIdToPrint(receiptId, "DISCONNECT");
                 activeUser->increaseReceiptCounter();
                 connectionHandler.sendLine(frame);
-
+                connectionHandler.setWriteIsLoggedOut();
             }
-
         }
     }
 
@@ -160,33 +142,28 @@ public:
     TaskRead(ConnectionHandler &connectionHandler,User* activeUser) : connectionHandler(connectionHandler),activeUser(activeUser) {}
 
     void operator()() {
-        while (!connectionHandler.isLoggedOut()) {
-            //TODO confirm and check how to read from the connection handler
-
+        while (!connectionHandler.getReadIsLoggedOut()) {
             string line = "";
             connectionHandler.getFrameAscii(line, '\0');
             vector<string> lineVector;
+            cout<<line<<endl;
             boost::split(lineVector, line, boost::is_any_of("\n"));
 
             if (lineVector[0] == "CONNECTED") {
-                connectionHandler.logMeIn();
-                cout << "connected sucssed" << endl;
-
+                cout << "CONNECTED Frame Arrived" <<endl;
             }
 
             if (lineVector[0] == "RECEIPT") {
                 string receiptId=lineVector[1].substr(11);
                 string messageToPrint=activeUser->getReceiptIdToPrint(receiptId);
                 if (messageToPrint == "DISCONNECT") {
-                    connectionHandler.setLoggedOut();
+                    connectionHandler.setReadIsLoggedOut();
                     connectionHandler.close();
-//                    connectionHandler.~ConnectionHandler();
+
                 }
                 else
                     cout << messageToPrint <<endl;
             }
-
-
 
             if (lineVector[0] == "MESSAGE") {
 
@@ -237,14 +214,9 @@ public:
 
                 //other client has the book
                 if (containHasAdded) {
-                    string genre = lineVector[2].substr(12);
-                    Book *newBook = new Book(bodyVector[2], genre);
-                    string owner = bodyVector[0];
-                    activeUser->addToBorrowedMap(newBook, owner);
+                    //TODO Delete this line
                     cout<< "someone has added a book"<<endl;
                 }
-
-
 
                 //Status Message case
                 if (containStatus) {
@@ -256,8 +228,11 @@ public:
 
 
                 if(containHas){
-                    string bookname=lineVector[5].substr(8);
+                    string body=lineVector[5];
                     int locationOfName=lineVector[5].find(" ");
+                    string tempbody=body.substr(locationOfName+1,body.size()-1);
+                    int locationofbookname=tempbody.find(" ");
+                    string bookname=tempbody.substr(locationofbookname+1,body.size()-1);
                     if(activeUser->isInMyWishList(bookname)) {
                         string previewsowner = lineVector[5].substr(0,locationOfName);
                         string topic = lineVector[3].substr(12);
@@ -265,19 +240,18 @@ public:
                         newBook->setPrivouesOwner(previewsowner);
                         activeUser->addToInventory(newBook);
                         activeUser->removeFromWishing(bookname);
-
-                        string frame =
-                                "SEND\ndestination:" + topic + "\n\n" + "Taking " + bookname +
-                                " from " +
-                                previewsowner + "\n" + '\u0000';
+                        activeUser->addToBorrowedBooks(newBook);
+                        string frame ="SEND\ndestination:" + topic + "\n\n" + "Taking "
+                                      + bookname +" from " + previewsowner + "\n" + '\u0000';
                         connectionHandler.sendLine(frame);
                     }
                 }
             }
 
             if (lineVector[0] == "ERROR") {
-
-                cout<<lineVector[3];
+                string error=lineVector[3];
+                connectionHandler.setReadIsLoggedOut();
+                connectionHandler.close();
             }
         }
     }
@@ -300,6 +274,7 @@ int main(int argc, char *argv[]) {
             int locationOfIp = lineVector[1].find_first_of(':');
             int endOfPort = lineVector[1].find_first_of(" ");
             string host = lineVector[1].substr(0, locationOfIp);
+            User *activeUser = new User(lineVector[2], lineVector[3]);
             string port = lineVector[1].substr(locationOfIp + 1, endOfPort);
             short shortPort = boost::lexical_cast<short>(port);
             ConnectionHandler *connectionHandler = new ConnectionHandler(host, shortPort);
@@ -307,6 +282,7 @@ int main(int argc, char *argv[]) {
             string frame = "CONNECT\naccept-version:1.2\nhost:stomp.cs.bgu.ac.il\nlogin:" + lineVector[2] +
                            "\npasscode:" + lineVector[3] + "\n\n" + '\u0000';
             connectionHandler->sendLine(frame);
+
             //receiving the first frame
             string line = "";
             connectionHandler->getFrameAscii(line, '\0');
@@ -315,20 +291,22 @@ int main(int argc, char *argv[]) {
 
             if (lineVector[0] == "CONNECTED") {
                 isConnected = true;
-                User *activeUser = new User(lineVector[2], lineVector[3]);
                 activeUser->setSubscribeId(0);
-                cout<<"Connected frame arrived"<<endl;
+                cout << "Connected frame arrived" << endl;
                 TaskWrite taskWrite(*connectionHandler, activeUser);
                 TaskRead taskRead(*connectionHandler, activeUser);
                 std::thread thWrite(std::ref(taskWrite)); // we use std::ref to avoid creating a copy of the Task object
                 std::thread thRead(std::ref(taskRead));
                 thWrite.join();
                 thRead.join();
-            } else
-                cout << lineVector[3] << endl;
+            } else {
+                string error = lineVector[3];
+                cout << error << endl;
+            }
         }
     }
-    }
+    return 0;
+}
 
 
 

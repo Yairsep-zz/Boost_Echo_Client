@@ -36,13 +36,9 @@ iostream
 boost/asio.hpp
 -
 
-/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/Client.cpp
-thread
+/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/User.cpp
+boost/algorithm/string/join.hpp
 -
-boost/algorithm/string.hpp
--
-include/User.h
--
-boost/lexical_cast.hpp
--
+User.h
+/users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/User.h
 

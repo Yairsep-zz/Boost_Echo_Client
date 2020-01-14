@@ -8,7 +8,8 @@ using std::cerr;
 using std::endl;
 using std::string;
 
-ConnectionHandler::ConnectionHandler(string host, short port): host_(host), port_(port), io_service_(), socket_(io_service_){}
+ConnectionHandler::ConnectionHandler(string host, short port): host_(host), port_(port), io_service_(), socket_(io_service_),
+WriteIsLoggedOut(false),ReadIsLoggedOut(false){}
 
 ConnectionHandler::~ConnectionHandler() {
     close();
@@ -109,19 +110,24 @@ void ConnectionHandler::close() {
 }
 
 //--------------------------------------Extras--------------------------------
+//
+//void ConnectionHandler::logMeIn() {
+//    this->loggedIn=true;
+//}
 
-bool ConnectionHandler::isLoggedOut(){
-    return loggedOut;
+
+void ConnectionHandler::setReadIsLoggedOut() {
+    this->ReadIsLoggedOut=true;
 }
 
-void ConnectionHandler :: setLoggedOut(){
-    loggedOut=true;
+void ConnectionHandler::setWriteIsLoggedOut() {
+    this->WriteIsLoggedOut=true;
 }
 
-void ConnectionHandler::logMeIn() {
-    this->loggedIn=true;
+bool ConnectionHandler::getReadIsLoggedOut() {
+    return this->ReadIsLoggedOut;
 }
 
-bool ConnectionHandler::isLoggedIn() {
-    return this->loggedIn;
+bool ConnectionHandler::getWriteIsLoggedOut() {
+    return this->WriteIsLoggedOut;
 }

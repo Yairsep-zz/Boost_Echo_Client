@@ -13,7 +13,6 @@ class Book{
 private:
     string name;
     string genre;
-    bool borrowTo;
     string borrowFrom;
 
 public:
@@ -21,12 +20,10 @@ public:
     //=======================Getters==================================
     string getGenre();
     string getName();
-    bool isBorrowTo();
     string getPrivouesOwner();
-
+    ~Book();
 
     //=======================Setters==================================
-    void setBorrowTo();
     void setPrivouesOwner(string name);
 
 

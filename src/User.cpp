@@ -7,23 +7,27 @@
 
 
 //Commands:
-//login 127.0.0.1:7777 bob alice
-//login 127.0.0.1:7777 alon brand
+//login 127.0.0.1:8083 bob alice
+//login 127.0.0.1:8083 alon brand
 
 User::~User() {
-
     inventory.clear();
-    borrowedFromMap.clear();
-
+    borrowedBooks.clear();
+    wishingBooks.clear();
+    subscriptionToId.clear();
+    receiptIdToPrint.clear();
 }
 
-User::User(const string name,const string password):userName(name),password(password) ,
-                                                    inventory(), borrowedFromMap(),subscriptionToId(),receiptIdToPrint(){
-    receiptId = 0;
-    subscribeId=0;
-
+User::User(const string name,const string password):userName(name),password(password),
+    inventory(), borrowedBooks(),wishingBooks(), subscriptionToId(),subscribeId(0),
+    receiptIdToPrint(),
+    receiptId(0){
 }
 
+User::User() :userName(""),password(""),
+              inventory(), borrowedBooks(),wishingBooks(), subscriptionToId(),subscribeId(0),
+              receiptIdToPrint(),
+              receiptId(0) {}
 
 
 //=======================Getters==================================
@@ -65,9 +69,7 @@ void User::setSubscribeId(int subscribeId) {
     User::subscribeId = subscribeId;
 }
 
-User::User() {
 
-}
 
 void User::setreceiptIdToPrint(int receiptId,string message) {
     receiptIdToPrint.insert(pair<string, string>(to_string(receiptId), message));
@@ -95,7 +97,7 @@ bool User::iHaveTheBook(string bookName) {
 
 void User::removeFromInventory(string bookName) {
 
-    for (int i = 0; i < inventory.size(); i++)
+    for (unsigned i = 0; i < inventory.size(); i++)
     {
         if (inventory.at(i).getName() == bookName)
             inventory.erase(inventory.begin() + i);
@@ -119,13 +121,6 @@ string User::printInventoryByGenre(string genre) {
 
 
 
-void User::addToBorrowedMap(Book* book, string owner) {
-    borrowedFromMap.insert(pair<Book*,string>(book,owner));
-}
-
-map<Book *, string> &User::getborowedFromMap() {
-    return this->borrowedFromMap;
-}
 string User::getReceiptIdToPrint(string subID)  {
     return receiptIdToPrint.at(subID);
 }
@@ -136,7 +131,7 @@ void User::addToMyWishing(string nameOfBook) {
 }
 
 void User::removeFromWishing(string nameOfBook) {
-    for (int i = 0; i < wishingBooks.size(); i++)
+    for (unsigned i = 0; i < wishingBooks.size(); i++)
     {
         if (wishingBooks.at(i) == nameOfBook)
             wishingBooks.erase(wishingBooks.begin() + i);
@@ -145,19 +140,35 @@ void User::removeFromWishing(string nameOfBook) {
 }
 
 bool User::isInMyWishList(string name) {
-    bool output=false;
-    for (int i = 0; i < wishingBooks.size(); i++)
+
+    if (std::find(wishingBooks.begin(), wishingBooks.end(), name) != wishingBooks.end())
     {
-        if (wishingBooks.at(i) == name)
-            output=true;
+        return true;
+    }
+    return false;
+}
+
+
+void User::addToBorrowedBooks(Book* bookToAdd) {
+    this->borrowedBooks.push_back(*bookToAdd);
+}
+
+
+string User::getPreOwnerFromBorrowedBooks(string bookName) {
+
+    string output;
+    for (unsigned i = 0; i <borrowedBooks.size(); i++) {
+        if (inventory.at(i).getName() == bookName)
+            output= borrowedBooks.at(i).getPrivouesOwner();
     }
     return output;
 }
 
-Book User::getBookFromInventory(string bookName) {
-    for (int i = 0; i <inventory.size(); i++) {
-        if (inventory.at(i).getName() == bookName)
-            return inventory.at(i);
+void User::removeFromBorrowedBooks(string bookToRemove) {
+    for (unsigned i = 0; i < borrowedBooks.size(); i++)
+    {
+        if (borrowedBooks.at(i).getName() == bookToRemove)
+            borrowedBooks.erase(borrowedBooks.begin() + i);
     }
 }
 

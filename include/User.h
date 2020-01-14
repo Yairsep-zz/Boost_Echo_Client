@@ -5,13 +5,12 @@
 #ifndef BOOST_ECHO_CLIENT_USER_H
 #define BOOST_ECHO_CLIENT_USER_H
 #include <string>
-
 #include <vector>
 #include <unordered_map>
 #include <map>
 #include "Book.h"
 #include "connectionHandler.h"
-#
+
 using namespace std;
 class User {
 
@@ -19,7 +18,7 @@ private:
     string userName;
     string password;
     vector<Book> inventory;
-    map<Book*,string> borrowedFromMap;
+    vector<Book> borrowedBooks;
     vector <string> wishingBooks;
     map<string,string> subscriptionToId;
     int subscribeId;
@@ -58,13 +57,19 @@ public:
     void addToInventory(Book *book);
     void setreceiptIdToPrint(int receiptId,string messageToPrint);
     void increaseReceiptCounter();
-    void addToBorrowedMap(Book* book,string owner);
+
     void addToMyWishing(string nameOfBook);
     void removeFromWishing(string nameOfBook);
-    ////
-    //geters////
+
+    //Borrowed map
+    void addToBorrowedBooks(Book* bookToAdd);
+    string getPreOwnerFromBorrowedBooks(string bookName);
+
+    //
+
+    //getters////
     string printInventoryByGenre (string genre);
-    Book getBookFromInventory(string bookName);
+    void removeFromBorrowedBooks(string bookToRemove);
 
 
 

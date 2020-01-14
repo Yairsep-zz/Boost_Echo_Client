@@ -13,9 +13,8 @@ private:
     const short port_;
     boost::asio::io_service io_service_;   // Provides core I/O functionality
     tcp::socket socket_;
-    bool loggedOut;
-    bool loggedIn=false;
-
+    bool WriteIsLoggedOut;
+    bool ReadIsLoggedOut;
 
 public:
     ConnectionHandler(std::string host, short port);
@@ -51,14 +50,12 @@ public:
     // Close down the connection properly.
     void close();
 
-    void logMeIn();
-
     //--------------------------------------Extras--------------------------------
 
-    bool isLoggedOut();
-
-    void setLoggedOut();
-    bool isLoggedIn();
+    void setReadIsLoggedOut();
+    void setWriteIsLoggedOut();
+    bool getReadIsLoggedOut();
+    bool getWriteIsLoggedOut();
 
 }; //class ConnectionHandler
 

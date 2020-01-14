@@ -21,8 +21,6 @@ class Client {
 private:
     ConnectionHandler &connectionHandler;
     User* activeUser;
-
-
 public:
 
 };
