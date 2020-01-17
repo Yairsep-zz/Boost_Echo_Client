@@ -6,6 +6,7 @@ CMakeFiles/Boost_Echo_Client.dir/src/Book.cpp.o
  /users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/Book.cpp
 CMakeFiles/Boost_Echo_Client.dir/src/Client.cpp.o
  ../include/Book.h
+ ../include/Client.h
  ../include/User.h
  ../include/connectionHandler.h
  /users/studs/bsc/2020/yairsep/Desktop/Boost_Echo_Client/src/Client.cpp

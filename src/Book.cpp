@@ -22,8 +22,6 @@ string Book::getName() {
 
 //=======================Setters==================================
 
-
-
 void Book::setPrivouesOwner(string name) {
 this->borrowFrom=name;
 }
@@ -35,6 +33,8 @@ string Book::getPrivouesOwner() {
 Book::~Book() {
 
 }
+
+
 
 
 

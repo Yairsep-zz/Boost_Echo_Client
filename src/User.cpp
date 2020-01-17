@@ -6,28 +6,27 @@
 #include "User.h"
 
 
-//Commands:
-//login 127.0.0.1:8083 bob alice
-//login 127.0.0.1:8083 alon brand
 
 User::~User() {
-    inventory.clear();
-    borrowedBooks.clear();
-    wishingBooks.clear();
-    subscriptionToId.clear();
     receiptIdToPrint.clear();
+    subscriptionToId.clear();
+    wishingBooks.clear();
+    borrowedBooks.clear();
+    inventory.clear();
+
+
 }
 
-User::User(const string name,const string password):userName(name),password(password),
+User::User(const string name,const string password):userName(name),password(password),mutexInventory(),
     inventory(), borrowedBooks(),wishingBooks(), subscriptionToId(),subscribeId(0),
     receiptIdToPrint(),
     receiptId(0){
 }
 
-User::User() :userName(""),password(""),
-              inventory(), borrowedBooks(),wishingBooks(), subscriptionToId(),subscribeId(0),
-              receiptIdToPrint(),
-              receiptId(0) {}
+//User::User() :userName(""),password(""),mutexInventory(mutexInventory),
+//              inventory(), borrowedBooks(),wishingBooks(), subscriptionToId(),subscribeId(0),
+//              receiptIdToPrint(),
+//              receiptId(0) {}
 
 
 //=======================Getters==================================
@@ -40,9 +39,6 @@ const string &User::getPassword() const {
     return password;
 }
 
-const vector<Book> &User::getInventory() const {
-    return inventory;
-}
 map<string, string> &User::getreceiptIdToPrint() {
     return receiptIdToPrint;
 }
@@ -52,7 +48,9 @@ map<string, string> &User::getreceiptIdToPrint() {
 
 
 void User::addToInventory(Book *book) {
-    inventory.push_back(*book);
+    this->mutexInventory.lock();
+    inventory.push_back(book);
+    this->mutexInventory.unlock();
 }
 
 
@@ -87,21 +85,24 @@ int User::getReceiptCounter() {
 
 bool User::iHaveTheBook(string bookName) {
 
-
-    for (auto it = inventory.begin(); it != inventory.end(); ++it) {
-        if(it->getName()==bookName)
+    for (Book *book : inventory) {
+        if (book->getName() == bookName) {
             return true;
+        }
     }
     return false;
 }
 
 void User::removeFromInventory(string bookName) {
-
-    for (unsigned i = 0; i < inventory.size(); i++)
-    {
-        if (inventory.at(i).getName() == bookName)
+    mutexInventory.lock();
+    for (unsigned i = 0; i < inventory.size(); i++) {
+        if (inventory.at(i)->getName() == bookName) {
+            delete inventory.at(i);
             inventory.erase(inventory.begin() + i);
+        }
     }
+
+    mutexInventory.unlock();
 }
 
 
@@ -110,9 +111,9 @@ void User::removeFromInventory(string bookName) {
 string User::printInventoryByGenre(string genre) {
 
     string output="";
-    for (Book book : inventory) {
-        if (book.getGenre() == genre) {
-            string s = book.getName();
+    for (Book* book : inventory) {
+        if (book->getGenre() == genre) {
+            string s = book->getName();
             output += s + ",";
         }
     }
@@ -149,17 +150,17 @@ bool User::isInMyWishList(string name) {
 }
 
 
-void User::addToBorrowedBooks(Book* bookToAdd) {
-    this->borrowedBooks.push_back(*bookToAdd);
+void User::addToBorrowedBooks(string bookToAdd) {
+    this->borrowedBooks.push_back(bookToAdd);
 }
 
 
 string User::getPreOwnerFromBorrowedBooks(string bookName) {
 
     string output;
-    for (unsigned i = 0; i <borrowedBooks.size(); i++) {
-        if (inventory.at(i).getName() == bookName)
-            output= borrowedBooks.at(i).getPrivouesOwner();
+    for (unsigned i = 0; i <inventory.size(); i++) {
+        if (inventory.at(i)->getName() == bookName)
+            output= inventory.at(i)->getPrivouesOwner();
     }
     return output;
 }
@@ -167,9 +168,16 @@ string User::getPreOwnerFromBorrowedBooks(string bookName) {
 void User::removeFromBorrowedBooks(string bookToRemove) {
     for (unsigned i = 0; i < borrowedBooks.size(); i++)
     {
-        if (borrowedBooks.at(i).getName() == bookToRemove)
+        if (borrowedBooks.at(i) == bookToRemove)
             borrowedBooks.erase(borrowedBooks.begin() + i);
     }
+}
+
+std::vector<Book *> User::getInventory() const {
+    return inventory;
+}
+std::vector<string> User::getBorrowedBooks() const {
+    return borrowedBooks;
 }
 
 

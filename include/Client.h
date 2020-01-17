@@ -9,6 +9,7 @@
 #include <vector>
 #include <unordered_map>
 #include <map>
+#include <condition_variable>
 #include "Book.h"
 #include "connectionHandler.h"
 #include "User.h"
@@ -19,9 +20,13 @@ using namespace std;
 class Client {
 
 private:
-    ConnectionHandler &connectionHandler;
-    User* activeUser;
+//    ConnectionHandler &connectionHandler;
+//    User* activeUser;
+//    std::mutex& mutex;
+//    std::mutex& userMutex;
+
 public:
+    ~Client();
 
 };
 

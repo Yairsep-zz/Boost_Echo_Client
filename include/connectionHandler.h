@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <boost/asio.hpp>
+#include <mutex>
 
 using boost::asio::ip::tcp;
 
@@ -11,12 +12,15 @@ class ConnectionHandler {
 private:
     const std::string host_;
     const short port_;
+//    std::mutex& mutex;
     boost::asio::io_service io_service_;   // Provides core I/O functionality
     tcp::socket socket_;
     bool WriteIsLoggedOut;
     bool ReadIsLoggedOut;
 
+
 public:
+
     ConnectionHandler(std::string host, short port);
     virtual ~ConnectionHandler();
 
@@ -56,7 +60,8 @@ public:
     void setWriteIsLoggedOut();
     bool getReadIsLoggedOut();
     bool getWriteIsLoggedOut();
-
+    void setLocker();
+    bool getLocker();
 }; //class ConnectionHandler
 
 #endif

@@ -17,8 +17,9 @@ class User {
 private:
     string userName;
     string password;
-    vector<Book> inventory;
-    vector<Book> borrowedBooks;
+    mutex mutexInventory;
+    vector<Book*> inventory;
+    vector<string> borrowedBooks;
     vector <string> wishingBooks;
     map<string,string> subscriptionToId;
     int subscribeId;
@@ -27,9 +28,8 @@ private:
 
 
 public:
-
+//    User (string userName,string password, std:: mutex& mutex);
     User (string userName,string password);
-    User ();
     ~User();
     void setSubscribeId(int subscribeId);
     int getSubscribeId();
@@ -46,7 +46,8 @@ public:
 
     const string &getPassword() const;
 
-    const vector<Book> &getInventory() const;
+    std::vector<Book*> getInventory() const;
+    std::vector<string> getBorrowedBooks() const;
 
     const map<string, string> &getSubscriptionToId();
      map<Book*,string>& getborowedFromMap();
@@ -62,7 +63,7 @@ public:
     void removeFromWishing(string nameOfBook);
 
     //Borrowed map
-    void addToBorrowedBooks(Book* bookToAdd);
+    void addToBorrowedBooks(string bookToAdd);
     string getPreOwnerFromBorrowedBooks(string bookName);
 
     //

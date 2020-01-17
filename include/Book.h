@@ -17,11 +17,11 @@ private:
 
 public:
     Book(string &name,string &genre);
+    virtual ~Book();
     //=======================Getters==================================
     string getGenre();
     string getName();
     string getPrivouesOwner();
-    ~Book();
 
     //=======================Setters==================================
     void setPrivouesOwner(string name);

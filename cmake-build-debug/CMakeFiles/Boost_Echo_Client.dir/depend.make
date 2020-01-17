@@ -5,6 +5,7 @@ CMakeFiles/Boost_Echo_Client.dir/src/Book.cpp.o: ../include/Book.h
 CMakeFiles/Boost_Echo_Client.dir/src/Book.cpp.o: ../src/Book.cpp
 
 CMakeFiles/Boost_Echo_Client.dir/src/Client.cpp.o: ../include/Book.h
+CMakeFiles/Boost_Echo_Client.dir/src/Client.cpp.o: ../include/Client.h
 CMakeFiles/Boost_Echo_Client.dir/src/Client.cpp.o: ../include/User.h
 CMakeFiles/Boost_Echo_Client.dir/src/Client.cpp.o: ../include/connectionHandler.h
 CMakeFiles/Boost_Echo_Client.dir/src/Client.cpp.o: ../src/Client.cpp
